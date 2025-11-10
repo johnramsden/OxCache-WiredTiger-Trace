@@ -1,4 +1,5 @@
-conn_config="cache_size=2048M,log=(enabled=true),eviction=(threads_max=1),verbose=[read,write]"
+conn_config="cache_size=2048M,eviction=(threads_max=1),verbose=[read:2,write:2]"
+verbose=3
 pareto=20
 table_config="type=file"
 key_sz=100

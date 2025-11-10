@@ -79,10 +79,10 @@ COPY bench.sh /data/
 
 WORKDIR /data
 
-RUN ./bench.sh
+# RUN ./bench.sh
 
 # Expose default WiredTiger port (if applicable)
 # EXPOSE 28015
 
 # Default command
-CMD ["wt", "-h", "/data", "-V"]
+CMD ["./bench.sh"]

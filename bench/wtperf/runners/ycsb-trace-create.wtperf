@@ -1,4 +1,4 @@
-conn_config="cache_size=5G,log=(enabled=true),verbose=[read,write]"
+conn_config="cache_size=5G,log=(enabled=true),verbose=[read:2,write:2]"
 pareto=20
 table_config="type=file"
 key_sz=100
