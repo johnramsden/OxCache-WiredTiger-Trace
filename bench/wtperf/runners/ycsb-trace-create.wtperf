@@ -9,3 +9,4 @@ threads=((count=10,reads=1),(count=10,updates=1))
 sample_interval=5
 populate_threads=8
 report_interval=5
+table_name="oxcache_table"

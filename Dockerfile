@@ -78,4 +78,4 @@ COPY bench.sh /bench.sh
 
 RUN mkdir -p /logs/
 
-CMD ["/bench.sh"]
+ENTRYPOINT ["/bench.sh"]

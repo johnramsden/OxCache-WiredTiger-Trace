@@ -11,3 +11,4 @@ warmup=10
 create=false
 sample_interval=5
 report_interval=5
+table_name="oxcache_table"
