@@ -1,5 +1,4 @@
 # Dockerfile for WiredTiger
-# Multi-stage build to create a clean runtime image
 
 FROM ubuntu:22.04 AS builder
 
@@ -75,14 +74,8 @@ COPY --from=builder /usr/local/include /usr/local/include
 RUN ldconfig
 
 COPY bench/wtperf/runners/ycsb-trace* /perf/
-COPY bench.sh /data/
+COPY bench.sh /bench.sh
 
-WORKDIR /data
+RUN mkdir -p /logs/
 
-# RUN ./bench.sh
-
-# Expose default WiredTiger port (if applicable)
-# EXPOSE 28015
-
-# Default command
-CMD ["./bench.sh"]
+CMD ["/bench.sh"]
