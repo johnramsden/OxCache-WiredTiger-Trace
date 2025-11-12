@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 DATA_LOCATION="$1"
 SECTOR_SIZE=4096

@@ -1,8 +1,9 @@
 #!/bin/sh
 
-LOG_DIR="$1"
+LOG_FILE="$1"
+LOG_PATH="/logs/$LOG_FILE"
 
 wtperf -O /perf/ycsb-trace-create.wtperf -h /data/
-touch "$LOG_DIR"
-wtperf -O /perf/ycsb-trace.wtperf -h /data/ > "$LOG_DIR"
+touch "$LOG_PATH"
+wtperf -O /perf/ycsb-trace.wtperf -h /data/ > "$LOG_PATH"
 
