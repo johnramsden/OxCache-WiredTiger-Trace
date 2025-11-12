@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Script to build and run WiredTiger Docker container with log collection
 # This script creates a Docker container from the Dockerfile and collects logs via mount
