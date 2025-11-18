@@ -100,7 +100,6 @@ trap 'cleanup $?' EXIT INT TERM
 main() {
     print_status "Starting WiredTiger Docker container with log collection"
 
-    print_error "${HOST_LOG_DIR}/${LOG_FILE}"
     create_log_directory
     build_image
     cleanup_existing_container
