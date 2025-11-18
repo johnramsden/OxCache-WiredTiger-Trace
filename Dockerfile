@@ -64,6 +64,7 @@ RUN apt-get update && apt-get install -y \
     libzstd1 \
     libssl3 \
     python3 \
+    gawk \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built libraries and binaries from builder stage
