@@ -75,6 +75,7 @@ RUN ldconfig
 
 COPY bench/wtperf/runners/ycsb-trace* /perf/
 COPY bench.sh /bench.sh
+COPY filter.sh /filter.sh
 
 RUN mkdir -p /logs/
 
