@@ -64,6 +64,7 @@ RUN apt-get update && apt-get install -y \
     libzstd1 \
     libssl3 \
     python3 \
+    gawk \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy built libraries and binaries from builder stage
@@ -75,6 +76,7 @@ RUN ldconfig
 
 COPY bench/wtperf/runners/ycsb-trace* /perf/
 COPY bench.sh /bench.sh
+COPY filter.sh /filter.sh
 
 RUN mkdir -p /logs/
 

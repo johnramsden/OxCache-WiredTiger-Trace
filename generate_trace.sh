@@ -66,7 +66,7 @@ run_container() {
     if docker run -d \
         --name "${CONTAINER_NAME}" \
         --mount type=bind,source="${HOST_LOG_DIR}",target="${CONTAINER_LOG_DIR}" \
-        "${IMAGE_NAME}" "${LOG_FILE}"; then
+        "${IMAGE_NAME}" "$(basename "${OUTPUT}")"; then
 
         print_status "Container started successfully"
         print_status "Container ID: $(docker ps -q --filter name=${CONTAINER_NAME})"
@@ -81,7 +81,7 @@ show_status() {
     docker ps --filter name="${CONTAINER_NAME}"
 
     print_status "Following container logs (press Ctrl+C to stop following):"
-    print_warning "Note: The actual benchmark results will be saved to ${HOST_LOG_DIR}/${LOG_FILE}"
+    print_warning "Note: The actual benchmark results will be saved to ${HOST_LOG_DIR}/$(basename "${OUTPUT}")"
     docker logs -f "${CONTAINER_NAME}"
 }
 
@@ -100,14 +100,11 @@ trap 'cleanup $?' EXIT INT TERM
 main() {
     print_status "Starting WiredTiger Docker container with log collection"
 
-    print_error "${HOST_LOG_DIR}/${LOG_FILE}"
     create_log_directory
     build_image
     cleanup_existing_container
     run_container
     show_status
-
-    ./filter.sh "${HOST_LOG_DIR}/${LOG_FILE}" > "${OUTPUT}"
 }
 
 main "$@"
