@@ -1,0 +1,30 @@
+# Exclude generated directories from Docker build context
+logs/
+data/
+
+# Exclude git files
+.git/
+.gitignore
+
+# Exclude Docker files
+Dockerfile
+.dockerignore
+
+# Exclude build artifacts
+build/
+*.o
+*.a
+*.so
+*.pyc
+__pycache__/
+
+# Exclude editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Exclude OS files
+.DS_Store
+Thumbs.db
