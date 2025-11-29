@@ -12,6 +12,8 @@ HOST_LOG_DIR="${1:-$(pwd)/logs}"
 LOG_FILE="${2:-data_log.txt}"
 CONTAINER_LOG_DIR="/logs"
 OUTPUT="${3:-spc_fmt.log}"
+HOST_DATA_DIR="$(pwd)/data"
+CONTAINER_DATA_DIR="/data"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -33,9 +35,18 @@ print_error() {
 create_log_directory() {
     print_status "Creating logs directory at ${HOST_LOG_DIR}"
     mkdir -p "${HOST_LOG_DIR}"
+    print_status "Creating data directory at ${HOST_DATA_DIR}"
+    mkdir -p "${HOST_DATA_DIR}"
 }
 
 build_image() {
+    # Check if image already exists
+    if docker image inspect "${IMAGE_NAME}" >/dev/null 2>&1; then
+        print_status "Docker image ${IMAGE_NAME} already exists, skipping build"
+        print_warning "To force rebuild, run: docker rmi ${IMAGE_NAME}"
+        return 0
+    fi
+
     print_status "Building Docker image: ${IMAGE_NAME}"
     echo docker build -t "${IMAGE_NAME}" .
     if docker build -t "${IMAGE_NAME}" .; then
@@ -57,15 +68,17 @@ cleanup_existing_container() {
 run_container() {
     print_status "Starting Docker container: ${CONTAINER_NAME}"
     print_status "Logs will be mounted to: ${HOST_LOG_DIR}"
+    print_status "Data will be mounted to: ${HOST_DATA_DIR}"
 
     # Run the container with the following options:
     # -d: detached mode (runs in background)
     # --name: assign a name to the container
-    # --mount: mount the logs directory
+    # --mount: mount the logs directory and data directory
 
     if docker run -d \
         --name "${CONTAINER_NAME}" \
         --mount type=bind,source="${HOST_LOG_DIR}",target="${CONTAINER_LOG_DIR}" \
+        --mount type=bind,source="${HOST_DATA_DIR}",target="${CONTAINER_DATA_DIR}" \
         "${IMAGE_NAME}" "$(basename "${OUTPUT}")"; then
 
         print_status "Container started successfully"
@@ -93,6 +106,7 @@ cleanup() {
     print_status "To stop the container manually, run: docker stop ${CONTAINER_NAME}"
     print_status "To remove the container manually, run: docker rm ${CONTAINER_NAME}"
     print_status "To view collected logs, check: ${HOST_LOG_DIR}/"
+    print_status "To view database files, check: ${HOST_DATA_DIR}/"
 }
 
 trap 'cleanup $?' EXIT INT TERM
