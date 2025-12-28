@@ -37,12 +37,12 @@ awk -v SECTOR_SIZE="$SECTOR_SIZE" '
 
         ts = ts_str + 0.0
 
-        # offset
+        # offset (in bytes)
         offset = 0
         if (match($0, /offset=([0-9]+)/, c))
-            offset = c[1] / SECTOR_SIZE
+            offset = c[1]
         else if (match($0, /off ([0-9]+)/, c))
-            offset = c[1] / SECTOR_SIZE
+            offset = c[1]
         else
             err("Error: missing offset/off")
 

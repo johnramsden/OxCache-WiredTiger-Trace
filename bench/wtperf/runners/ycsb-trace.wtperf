@@ -1,10 +1,10 @@
-conn_config="cache_size=16G,eviction=(threads_max=1),verbose=[read:2,write:2]"
+conn_config="cache_size=1G,eviction=(threads_max=1),verbose=[read:2,write:2]"
 verbose=3
 pareto=20
 table_config="type=file"
 key_sz=100
-value_sz=4096
-run_time=18000
+value_sz=8192
+run_time=172800
 threads=((count=10,reads=1),(count=10,updates=1))
 warmup=10
 create=false
